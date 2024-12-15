@@ -1,0 +1,17 @@
+name: Deploy AWS Glue Pipeline
+
+on: 
+  push: 
+    branches: [ main ]
+  pull_request: 
+    branches: [ main ]
+
+jobs:
+  deploy: 
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: us-west-2
+      S3_BUCKET: aws_project_glue_script
+      GLUE_JOB_NAME: tranform_data_gule
+
