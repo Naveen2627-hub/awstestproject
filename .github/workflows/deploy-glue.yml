@@ -12,6 +12,20 @@ jobs:
 
     env:
       AWS_REGION: us-west-2
-      S3_BUCKET: aws_project_glue_script
-      GLUE_JOB_NAME: tranform_data_gule
+      S3_BUCKET: aws-project-glue-script
+      GLUE_JOB_NAME: transformation_job
+
+    steps: 
+    - uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Upload to S3
+      run: |
+        aws s3 cp infrastructure/scripts/glue_job.py s3://$S3_BUCKET/scripts/glue_job.py
 
